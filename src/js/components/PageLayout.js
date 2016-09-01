@@ -4,6 +4,8 @@ import { Grid, PageHeader, Nav, NavItem } from 'react-bootstrap'
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css'
 
 import Agency from '../containers/Agency'
+import Routes from '../containers/Routes'
+//import Stops from '../containers/Stops'
 
 
 export default class PageLayout extends React.Component {
@@ -22,7 +24,7 @@ export default class PageLayout extends React.Component {
           <Agency />
         }
         {this.props.activeTab === 'route' &&
-          <div>Route Content</div>
+          <Routes />
         }
         {this.props.activeTab === 'stop' &&
           <div>Stop Content</div>

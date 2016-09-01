@@ -2,7 +2,7 @@ import React from 'react'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 
 
-export default class PageLayout extends React.Component {
+export default class AgencyLayout extends React.Component {
 
   render () {
     return (
