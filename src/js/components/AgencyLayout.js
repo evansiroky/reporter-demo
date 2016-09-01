@@ -1,16 +1,19 @@
 import React from 'react'
-import { Grid, Row, Col } from 'react-bootstrap'
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 
 
 export default class PageLayout extends React.Component {
 
   render () {
     return (
-      <Grid>
-        <Row>
-          <Col xs={12}>Agency Data</Col>
-        </Row>
-      </Grid>
+      <BootstrapTable
+        data={this.props.agencyStats}
+        striped={true}
+        hover={true}
+      >
+        <TableHeaderColumn dataField='statName' isKey={true}>Statistic</TableHeaderColumn>
+        <TableHeaderColumn dataField='statValue'>Value</TableHeaderColumn>
+      </BootstrapTable>
     )
   }
 }

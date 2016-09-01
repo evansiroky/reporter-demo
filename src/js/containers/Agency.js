@@ -6,7 +6,7 @@ import AgencyLayout from '../components/AgencyLayout'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    agency: state.agency
+    agencyStats: state.agencyStats
   }
 }
 
