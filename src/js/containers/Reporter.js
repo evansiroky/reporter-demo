@@ -1,26 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import PageLayout from '../components/PageLayout'
+import { selectTab } from '../actions/pageLayout'
 
 
-
-class Reporter extends React.Component {
-
-  render () {
-    return (
-      <div>Hello World</div>
-    )
+const mapStateToProps = (state, ownProps) => {
+  return {
+    activeTab: state.pageLayout.activeTab
   }
 }
 
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onTabSelect: (eventKey) => { dispatch(selectTab(eventKey)) }
+  }
+}
 
-const mapStateToProps = (state, ownProps) => { return {} }
-const mapDispatchToProps = (dispatch, ownProps) => { return {} }
-
-
-Reporter = connect(
+const Reporter = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Reporter)
+)(PageLayout)
 
 export default Reporter

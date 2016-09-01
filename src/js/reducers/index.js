@@ -1,7 +1,7 @@
 import { combineReducers } from "redux"
 
-import reporter from './reporterReducer'
+import pageLayout from './pageLayout'
 
 export default combineReducers({
-  reporter
+  pageLayout
 })
