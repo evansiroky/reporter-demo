@@ -5,7 +5,7 @@ import 'react-bootstrap-table/dist/react-bootstrap-table.min.css'
 
 import Agency from '../containers/Agency'
 import Routes from '../containers/Routes'
-//import Stops from '../containers/Stops'
+import Stops from '../containers/Stops'
 
 
 export default class PageLayout extends React.Component {
@@ -17,17 +17,17 @@ export default class PageLayout extends React.Component {
         <Nav bsStyle='tabs' activeKey={this.props.activeTab} onSelect={this.props.onTabSelect}
           style={{marginBottom: '10px'}}>
           <NavItem eventKey='agency'>Agency</NavItem>
-          <NavItem eventKey='route'>Route</NavItem>
-          <NavItem eventKey='stop'>Stop</NavItem>
+          <NavItem eventKey='routes'>Routes</NavItem>
+          <NavItem eventKey='stop'>Stops</NavItem>
         </Nav>
         {this.props.activeTab === 'agency' &&
           <Agency />
         }
-        {this.props.activeTab === 'route' &&
+        {this.props.activeTab === 'routes' &&
           <Routes />
         }
         {this.props.activeTab === 'stop' &&
-          <div>Stop Content</div>
+          <Stops />
         }
       </Grid>
     )
