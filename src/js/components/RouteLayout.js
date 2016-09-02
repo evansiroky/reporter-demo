@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Grid, Row, Col, Button } from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import Spinner from 'react-spinkit'
 
@@ -11,6 +11,9 @@ export default class RouteLayout extends React.Component {
   }
 
   render () {
+
+    const self = this
+
     return (
       <Grid>
 
@@ -38,11 +41,30 @@ export default class RouteLayout extends React.Component {
             hover={true}
           >
             <TableHeaderColumn dataField='route_id' isKey={true} hidden={true} />
-            <TableHeaderColumn dataField='route_name'>Name</TableHeaderColumn>
-            <TableHeaderColumn dataField='num_patterns'>Number of Patterns</TableHeaderColumn>
-            <TableHeaderColumn dataField='stop_density'>Stop Density</TableHeaderColumn>
-            <TableHeaderColumn dataField='num_trips'>Number of Trips</TableHeaderColumn>
-            <TableHeaderColumn dataField='avg_speed'>Average Speed</TableHeaderColumn>
+            <TableHeaderColumn dataField='route_short_name'>Short Name</TableHeaderColumn>
+            <TableHeaderColumn dataField='route_long_name'>Long Name</TableHeaderColumn>
+            <TableHeaderColumn dataField='route_desc'>Description</TableHeaderColumn>
+            <TableHeaderColumn
+              dataField='route_url'
+              dataFormat={(cell, row) => {
+                return ( <a href={cell} target={'_blank'} >Link</a> )
+              }}>
+                Route URL
+            </TableHeaderColumn>
+            <TableHeaderColumn
+              dataFormat={(cell, row) => {
+                return (
+                  <Button
+                    bsStyle="primary"
+                    bsSize="small"
+                    onClick={() => { self.props.viewPatterns(row) }}
+                  >
+                    View Patterns
+                  </Button>
+                )
+              }}>
+                Patterns
+            </TableHeaderColumn>
           </BootstrapTable>
         }
       </Grid>

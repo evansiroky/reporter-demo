@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onComponentMount: (initialProps) => {
       dispatch(fetchRoutes())
+    },
+    viewPatterns: (row) => {
+      console.log(row)
     }
   }
 }

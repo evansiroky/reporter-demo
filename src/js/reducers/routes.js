@@ -7,26 +7,12 @@ const defaultState = {
     fetching: false,
     error: false
   },
-  data: [
-    {
-      route_id: '1',
-      route_name: 'Route 1',
-      num_patterns: 4,
-      stop_density: 3,
-      num_trips: 2,
-      avg_speed: 1
-    }, {
-      route_id: '2',
-      route_name: 'Route 2',
-      num_patterns: 4,
-      stop_density: 3,
-      num_trips: 2,
-      avg_speed: 1
-    }
-  ]
+  data: []
 }
 
 export default function reducer(state=defaultState, action) {
+
+  console.log(action)
 
   switch (action.type) {
     case 'FETCH_ROUTES_PENDING':
@@ -53,11 +39,11 @@ export default function reducer(state=defaultState, action) {
     case 'FETCH_ROUTES_FULFILLED':
       return {
         fetchStatus: {
-          fetched: false,
-          fetching: true,
+          fetched: true,
+          fetching: false,
           error: false
         },
-        data: action.data
+        data: action.payload.data.routes
       }
       break
     default:
