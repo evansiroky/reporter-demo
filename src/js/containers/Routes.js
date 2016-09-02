@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import RouteLayout from '../components/RouteLayout'
+import { fetchRoutes } from '../actions/routes'
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -10,7 +11,13 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => { return {}  }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    onComponentMount: (initialProps) => {
+      dispatch(fetchRoutes())
+    }
+  }
+}
 
 const Routes = connect(
   mapStateToProps,
