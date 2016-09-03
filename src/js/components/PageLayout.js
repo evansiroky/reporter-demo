@@ -18,12 +18,12 @@ export default class PageLayout extends React.Component {
         <PageHeader>Reports</PageHeader>
         <Nav bsStyle='tabs' activeKey={this.props.activeTab} onSelect={this.props.onTabSelect}
           style={{marginBottom: '10px'}}>
-          <NavItem eventKey='agency'>Agency</NavItem>
+          <NavItem eventKey='feed'>Feed</NavItem>
           <NavItem eventKey='routes'>Routes</NavItem>
           <NavItem eventKey='patterns'>Patterns</NavItem>
           <NavItem eventKey='stop'>Stops</NavItem>
         </Nav>
-        {this.props.activeTab === 'agency' &&
+        {this.props.activeTab === 'feed' &&
           <Feed />
         }
         {this.props.activeTab === 'routes' &&
