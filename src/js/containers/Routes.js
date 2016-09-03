@@ -2,7 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import RouteLayout from '../components/RouteLayout'
+import { selectTab } from '../actions/pageLayout'
 import { fetchRoutes } from '../actions/routes'
+import { patternRouteFilterChange } from '../actions/patterns'
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -14,10 +16,13 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onComponentMount: (initialProps) => {
-      dispatch(fetchRoutes())
+      if(!initialProps.routes.fetchStatus.fetched) {
+        dispatch(fetchRoutes())
+      }
     },
     viewPatterns: (row) => {
-      console.log(row)
+      dispatch(patternRouteFilterChange(row))
+      dispatch(selectTab('patterns'))
     }
   }
 }

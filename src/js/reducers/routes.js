@@ -1,9 +1,11 @@
 import update from 'react-addons-update'
 
+import { getRouteName } from '../util'
+
 
 const defaultState = {
   fetchStatus: {
-    fetched: true,
+    fetched: false,
     fetching: false,
     error: false
   },
@@ -11,8 +13,6 @@ const defaultState = {
 }
 
 export default function reducer(state=defaultState, action) {
-
-  console.log(action)
 
   switch (action.type) {
     case 'FETCH_ROUTES_PENDING':
@@ -37,13 +37,19 @@ export default function reducer(state=defaultState, action) {
       })
       break
     case 'FETCH_ROUTES_FULFILLED':
+      let newRoutes = []
+      for (var i = 0; i < action.payload.data.routes.length; i++) {
+        let curRoute = action.payload.data.routes[i]
+        curRoute.route_name = getRouteName(curRoute)
+        newRoutes.push(curRoute)
+      }
       return {
         fetchStatus: {
           fetched: true,
           fetching: false,
           error: false
         },
-        data: action.payload.data.routes
+        data: newRoutes
       }
       break
     default:

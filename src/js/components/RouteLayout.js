@@ -1,7 +1,8 @@
 import React from 'react'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
+import { Grid, Alert, Button } from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import Spinner from 'react-spinkit'
+
+import Loading from './common/Loading'
 
 
 export default class RouteLayout extends React.Component {
@@ -18,20 +19,13 @@ export default class RouteLayout extends React.Component {
       <Grid>
 
         {this.props.routes.fetchStatus.fetching &&
-          <Row>
-            <Col xs={12}>
-              <Spinner spinnerName='circle' />
-              <p>Loading...</p>
-            </Col>
-          </Row>
+          <Loading />
         }
 
         {this.props.routes.fetchStatus.error &&
-          <Row>
-            <Col xs={12}>
-              <p>An error occurred while trying to fetch the data</p>
-            </Col>
-          </Row>
+          <Alert bsStyle="danger">
+            An error occurred while trying to fetch the data
+          </Alert>
         }
 
         {this.props.routes.fetchStatus.fetched &&
