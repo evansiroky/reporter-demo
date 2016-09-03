@@ -4,7 +4,7 @@ import { Grid, PageHeader, Nav, NavItem } from 'react-bootstrap'
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css'
 import 'react-select/dist/react-select.css'
 
-import Agency from '../containers/Agency'
+import Feed from '../containers/Feed'
 import Patterns from '../containers/Patterns'
 import Routes from '../containers/Routes'
 import Stops from '../containers/Stops'
@@ -24,7 +24,7 @@ export default class PageLayout extends React.Component {
           <NavItem eventKey='stop'>Stops</NavItem>
         </Nav>
         {this.props.activeTab === 'agency' &&
-          <Agency />
+          <Feed />
         }
         {this.props.activeTab === 'routes' &&
           <Routes />

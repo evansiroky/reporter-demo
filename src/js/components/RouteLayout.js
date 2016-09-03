@@ -41,10 +41,12 @@ export default class RouteLayout extends React.Component {
             <TableHeaderColumn
               dataField='route_url'
               dataFormat={(cell, row) => {
-                return ( <a href={cell} target={'_blank'} >Link</a> )
+                return cell ? ( <a href={cell} target={'_blank'} >Link</a> ) : ''
               }}>
                 Route URL
             </TableHeaderColumn>
+            <TableHeaderColumn dataField='trip_count'>Number of Trips</TableHeaderColumn>
+            <TableHeaderColumn dataField='pattern_count'>Number of Patterns</TableHeaderColumn>
             <TableHeaderColumn
               dataFormat={(cell, row) => {
                 return (

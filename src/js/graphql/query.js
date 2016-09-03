@@ -2,6 +2,20 @@ export function compose (query, variables) {
   return `http:\//localhost:4567/api/graphql?query=${encodeURIComponent(query)}&variables=${encodeURIComponent(JSON.stringify(variables))}`
 }
 
+export const feed = `
+query feedQuery($feedId: [String]) {
+  feeds (feed_id: $feedId) {
+    feed_id,
+    feed_publisher_name,
+    feed_publisher_url,
+    feed_lang,
+    feed_version,
+    route_count,
+    stop_count
+  }
+}
+`
+
 export const routes = `
 query routeQuery($feedId: [String]) {
   routes(feed_id: $feedId) {
@@ -9,7 +23,9 @@ query routeQuery($feedId: [String]) {
     route_short_name
     route_long_name,
     route_desc,
-    route_url
+    route_url,
+    trip_count,
+    pattern_count
   }
 }
 `
@@ -22,7 +38,9 @@ query patternsQuery($feedId: [String], $routeId: [String]) {
     route_long_name,
     patterns {
       pattern_id,
-      name
+      name,
+      stop_count,
+      trip_count
     }
   }
 }

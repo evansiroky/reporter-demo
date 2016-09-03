@@ -53,6 +53,8 @@ export default class RouteLayout extends React.Component {
           >
             <TableHeaderColumn dataField='pattern_id' isKey={true} hidden={true} />
             <TableHeaderColumn dataField='name'>Name</TableHeaderColumn>
+            <TableHeaderColumn dataField='trip_count'>Number of Trips</TableHeaderColumn>
+            <TableHeaderColumn dataField='stop_count'>Number of Stops</TableHeaderColumn>
             <TableHeaderColumn
               dataFormat={(cell, row) => {
                 return (
