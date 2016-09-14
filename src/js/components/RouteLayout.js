@@ -1,7 +1,8 @@
 import React from 'react'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Grid, Alert, Button } from 'react-bootstrap'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import Spinner from 'react-spinkit'
+
+import Loading from './common/Loading'
 
 
 export default class RouteLayout extends React.Component {
@@ -11,24 +12,20 @@ export default class RouteLayout extends React.Component {
   }
 
   render () {
+
+    const self = this
+
     return (
       <Grid>
 
         {this.props.routes.fetchStatus.fetching &&
-          <Row>
-            <Col xs={12}>
-              <Spinner spinnerName='circle' />
-              <p>Loading...</p>
-            </Col>
-          </Row>
+          <Loading />
         }
 
         {this.props.routes.fetchStatus.error &&
-          <Row>
-            <Col xs={12}>
-              <p>An error occurred while trying to fetch the data</p>
-            </Col>
-          </Row>
+          <Alert bsStyle="danger">
+            An error occurred while trying to fetch the data
+          </Alert>
         }
 
         {this.props.routes.fetchStatus.fetched &&
@@ -38,11 +35,32 @@ export default class RouteLayout extends React.Component {
             hover={true}
           >
             <TableHeaderColumn dataField='route_id' isKey={true} hidden={true} />
-            <TableHeaderColumn dataField='route_name'>Name</TableHeaderColumn>
-            <TableHeaderColumn dataField='num_patterns'>Number of Patterns</TableHeaderColumn>
-            <TableHeaderColumn dataField='stop_density'>Stop Density</TableHeaderColumn>
-            <TableHeaderColumn dataField='num_trips'>Number of Trips</TableHeaderColumn>
-            <TableHeaderColumn dataField='avg_speed'>Average Speed</TableHeaderColumn>
+            <TableHeaderColumn dataField='route_short_name'>Short Name</TableHeaderColumn>
+            <TableHeaderColumn dataField='route_long_name'>Long Name</TableHeaderColumn>
+            <TableHeaderColumn dataField='route_desc'>Description</TableHeaderColumn>
+            <TableHeaderColumn
+              dataField='route_url'
+              dataFormat={(cell, row) => {
+                return cell ? ( <a href={cell} target={'_blank'} >Link</a> ) : ''
+              }}>
+                Route URL
+            </TableHeaderColumn>
+            <TableHeaderColumn dataField='trip_count'>Number of Trips</TableHeaderColumn>
+            <TableHeaderColumn dataField='pattern_count'>Number of Patterns</TableHeaderColumn>
+            <TableHeaderColumn
+              dataFormat={(cell, row) => {
+                return (
+                  <Button
+                    bsStyle="primary"
+                    bsSize="small"
+                    onClick={() => { self.props.viewPatterns(row) }}
+                  >
+                    View Patterns
+                  </Button>
+                )
+              }}>
+                Patterns
+            </TableHeaderColumn>
           </BootstrapTable>
         }
       </Grid>

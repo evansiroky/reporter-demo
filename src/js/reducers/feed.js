@@ -1,7 +1,5 @@
 import update from 'react-addons-update'
 
-import { getRouteName } from '../util'
-
 
 const defaultState = {
   fetchStatus: {
@@ -12,10 +10,20 @@ const defaultState = {
   data: []
 }
 
+const feedStatKeyDescription = {
+  feed_id: 'Feed Id',
+  feed_publisher_name: 'Publisher',
+  feed_publisher_url: 'Publisher URL',
+  feed_lang: 'Language Code',
+  feed_version: 'Feed Version',
+  route_count: 'Number of Routes in Feed',
+  stop_count: "Number of Stops in Feed"
+}
+
 export default function reducer(state=defaultState, action) {
 
   switch (action.type) {
-    case 'FETCH_ROUTES_PENDING':
+    case 'FETCH_FEED_PENDING':
       return {
         fetchStatus: {
           fetched: false,
@@ -25,7 +33,7 @@ export default function reducer(state=defaultState, action) {
         data: []
       }
       break
-    case 'FETCH_ROUTES_REJECTED':
+    case 'FETCH_FEED_REJECTED':
       return update(state, {
         fetchStatus: {
           $set: {
@@ -36,12 +44,15 @@ export default function reducer(state=defaultState, action) {
         }
       })
       break
-    case 'FETCH_ROUTES_FULFILLED':
-      let newRoutes = []
-      for (let i = 0; i < action.payload.data.routes.length; i++) {
-        let curRoute = action.payload.data.routes[i]
-        curRoute.route_name = getRouteName(curRoute)
-        newRoutes.push(curRoute)
+    case 'FETCH_FEED_FULFILLED':
+      let feedData = action.payload.data.feeds[0],
+        feedStats = []
+      const feedKeys = Object.keys(feedData)
+      for (let i = 0; i < feedKeys.length; i++) {
+        feedStats.push({
+          statName: feedStatKeyDescription[feedKeys[i]],
+          statValue: feedData[feedKeys[i]]
+        })
       }
       return {
         fetchStatus: {
@@ -49,7 +60,7 @@ export default function reducer(state=defaultState, action) {
           fetching: false,
           error: false
         },
-        data: newRoutes
+        data: feedStats
       }
       break
     default:

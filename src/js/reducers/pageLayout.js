@@ -2,7 +2,7 @@ import update from 'react-addons-update'
 
 
 const defaultState = {
-  activeTab: 'agency'
+  activeTab: 'feed'
 }
 
 export default function reducer(state=defaultState, action) {
