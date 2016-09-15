@@ -1,6 +1,7 @@
-var debug = process.env.NODE_ENV !== "production"
+var isProd = process.env.NODE_ENV !== 'production'
+
 var CopyWebpackPlugin = require('copy-webpack-plugin')
-var ExtractTextPlugin = require("extract-text-webpack-plugin")
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var webpack = require('webpack')
 var path = require('path')
@@ -9,15 +10,16 @@ var htmlPlugin = new HtmlWebpackPlugin({
   template: 'index.html'
 })
 
-var cwp = new CopyWebpackPlugin([
-    { from: './assets', to: './assets'}
+var cwp = new CopyWebpackPlugin(
+  [
+    {from: './assets', to: './assets'}
   ]
 )
 
 module.exports = {
-  context: path.join(__dirname, "src"),
-  devtool: debug ? "inline-sourcemap" : null,
-  entry: "./js/client.js",
+  context: path.join(__dirname, 'src'),
+  devtool: isProd ? 'inline-sourcemap' : null,
+  entry: './js/client.js',
   module: {
     loaders: [
       {
@@ -26,11 +28,11 @@ module.exports = {
         loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-0'],
-          plugins: ['react-html-attrs', 'transform-class-properties'],
+          plugins: ['react-html-attrs', 'transform-class-properties']
         }
       }, {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       }, {
         test: /\.json$/,
         loader: 'json'
@@ -39,32 +41,32 @@ module.exports = {
         loader: 'file?name=[path][name].[ext]'
       }, {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "file"
+        loader: 'file'
       }, {
         test: /\.(woff|woff2)$/,
-        loader:"url?prefix=font/&limit=5000"
+        loader: 'url?prefix=font/&limit=5000'
       }, {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=application/octet-stream"
+        loader: 'url?limit=10000&mimetype=application/octet-stream'
       }, {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=image/svg+xml"
+        loader: 'url?limit=10000&mimetype=image/svg+xml'
       }
     ]
   },
   output: {
-    path: __dirname + "/dist/",
-    filename: "client.min.js"
+    path: __dirname + '/dist/',
+    filename: 'client.min.js'
   },
-  plugins: debug ? [
-    new ExtractTextPlugin("site.css"),
+  plugins: isProd ? [
+    new ExtractTextPlugin('site.css'),
     htmlPlugin,
     cwp
   ] : [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: true, sourcemap: true }),
-    new ExtractTextPlugin("site.css"),
+    new ExtractTextPlugin('site.css'),
     htmlPlugin,
     cwp
   ]
