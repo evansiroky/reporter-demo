@@ -10,7 +10,7 @@ const instanbulInstrumenterCfg = {
   }
 }
 
-//webpackConfig.module.preLoaders = [ instanbulInstrumenterCfg ]
+// webpackConfig.module.preLoaders = [ instanbulInstrumenterCfg ]
 webpackConfig.module.postLoaders = [ instanbulInstrumenterCfg ]
 
 module.exports = function (config) {
@@ -36,8 +36,7 @@ module.exports = function (config) {
 
     // test coverage
     coverageReporter: {
-      type: 'text', // produces a html document after code is run
-      dir: 'coverage/' // path to created html doc
+      type: 'in-memory'
     },
 
     // frameworks to use
@@ -54,7 +53,7 @@ module.exports = function (config) {
     // list of plugins
     plugins: ['karma-chai', 'karma-chrome-launcher', 'karma-mocha',
       'karma-sourcemap-loader', 'karma-webpack',
-      'karma-coverage', 'karma-mocha-reporter'],
+      'karma-coverage', 'karma-mocha-reporter', 'karma-remap-coverage'],
 
     // web server port
     port: 9876,
@@ -65,10 +64,14 @@ module.exports = function (config) {
       'src/**/*.js': ['coverage', 'webpack']
     },
 
+    remapCoverageReporter: {
+      html: './coverage-remap/html'
+    },
+
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'mocha', 'coverage'],
+    reporters: ['progress', 'mocha', 'coverage', 'remap-coverage'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
