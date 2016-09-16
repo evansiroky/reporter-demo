@@ -2,11 +2,11 @@ import { expect } from 'chai'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 
-import Loading from '../../src/js/components/common/Loading'
+import PageLayout from '../../src/js/components/PageLayout'
 
-describe('root', function () {
+describe('PageLayout component', function () {
   it('renders without problems', function () {
-    const elem = TestUtils.renderIntoDocument(<Loading/>)
+    const elem = TestUtils.renderIntoDocument(<PageLayout/>)
     expect(elem).to.exist
   })
 })

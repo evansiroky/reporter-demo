@@ -3,8 +3,11 @@ let webpackConfig = require('./webpack.config.js')
 
 const instanbulInstrumenterCfg = {
   test: /\.js$/,
-  exclude: /(test|node_modules|bower_components)\//,
-  loader: 'istanbul-instrumenter'
+  exclude: /(tests|node_modules|bower_components)\//,
+  loader: 'istanbul-instrumenter',
+  query: {
+    esModules: true
+  }
 }
 
 //webpackConfig.module.preLoaders = [ instanbulInstrumenterCfg ]
@@ -33,7 +36,7 @@ module.exports = function (config) {
 
     // test coverage
     coverageReporter: {
-      type: 'html', // produces a html document after code is run
+      type: 'text', // produces a html document after code is run
       dir: 'coverage/' // path to created html doc
     },
 
@@ -42,7 +45,7 @@ module.exports = function (config) {
     frameworks: ['mocha'],
 
     // list of files / patterns to load in the browser
-    files: ['tests/**/*.test.js'],
+    files: ['tests/index.js'],
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
@@ -57,6 +60,7 @@ module.exports = function (config) {
     port: 9876,
 
     preprocessors: {
+      'tests/index.js': ['webpack', 'sourcemap'],
       'tests/**/*\.test.js': [ 'webpack' ],
       'src/**/*.js': ['coverage', 'webpack']
     },

@@ -1,4 +1,4 @@
-var isProd = process.env.NODE_ENV !== 'production'
+var isDev = process.env.NODE_ENV !== 'production'
 
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -18,7 +18,7 @@ var cwp = new CopyWebpackPlugin(
 
 module.exports = {
   context: path.join(__dirname, 'src'),
-  devtool: isProd ? 'inline-sourcemap' : null,
+  devtool: isDev ? 'inline-sourcemap' : null,
   entry: './js/client.js',
   module: {
     loaders: [
@@ -58,7 +58,7 @@ module.exports = {
     path: __dirname + '/dist/',
     filename: 'client.min.js'
   },
-  plugins: isProd ? [
+  plugins: isDev ? [
     new ExtractTextPlugin('site.css'),
     htmlPlugin,
     cwp
